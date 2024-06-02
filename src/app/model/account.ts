@@ -11,6 +11,7 @@ export interface Account {
     genderId:number;
     educationId:number;
     accountTypeId:number;
+    accountNo:number;
     genderModel:{
         name:""
     }; 
@@ -22,4 +23,5 @@ export interface Account {
     accountTypeModel:{
         accountType:""
     };
+    intialAmount:number;
 }

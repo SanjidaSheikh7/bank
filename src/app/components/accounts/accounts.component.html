@@ -119,6 +119,15 @@
                             style="color: red;">Account Type Id is a required field</span>
                         </div>
                     </div>
+                    <div class="col-sm-6">
+                        <label for="intialAmount" class="form-label">Initial Amount</label><br>
+                        <input type="number" class="form-control" id="intialAmount" placeholder="Enter Initial Amount"
+                         formControlName="intialAmount">
+                        <div>
+                            <span *ngIf="accountForm.get('intialAmount').invalid 
+                            && accountForm.get('intialAmount').touched" style="color: red;">Initial Amount is a required field</span>
+                        </div>
+                    </div>
                 </div> 
                   
             </div>

@@ -34,7 +34,8 @@ export class AccountsComponent implements OnInit{
         address:new FormControl(null,Validators.required),
         genderId:new FormControl(null,Validators.required),
         educationId:new FormControl(null,Validators.required),
-        accountTypeId:new FormControl(null,Validators.required)
+        accountTypeId:new FormControl(null,Validators.required),
+        intialAmount:new FormControl(null,Validators.required)
       });
       this.getGender();
       this.getEducation();

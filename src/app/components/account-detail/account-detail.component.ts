@@ -55,6 +55,12 @@ export class AccountDetailComponent implements OnInit {
         if(response.success){
           this.spinner.hide();
           this.accountList=response.data;
+          // if (this.accountList.length > 0) {
+          //   const accountNo = this.accountList[0].accountNo;
+          //   console.log('Account Number:', accountNo);
+          //   // You can use accountNo as needed in your component
+          // }
+          // console.log(response.data.accountNo);
           this.searchResult.currentPage=response.currentPage;
           this.searchResult.totalElements=response.totalElements;
           this.searchResult.totalPages=response.totalPages;
@@ -72,8 +78,8 @@ export class AccountDetailComponent implements OnInit {
   deleteAccount(accountId:number):void{
     this.commonRestService.delete('account/v1/delete/',accountId).subscribe((response)=>{
       this.accountList=this.accountList.filter((account)=>{account.id!=accountId});
-      this.getAllAccountList();
     });
+    // this.getAllAccountList();
     this.refreshPage();
   }
 

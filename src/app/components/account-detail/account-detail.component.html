@@ -246,6 +246,26 @@
                               *ngIf="search.sortCol === 'accountTypeId' && search.sortType == 'DESC'"
                             ></span>
                             </th>
+                            <th 
+                            scope="col" 
+                            style="text-align: center;"
+                            (click)="sortByColName('intialAmount')"
+                            class="cursor-pointer-i"
+                          >
+                            Initial Amount
+                            <span
+                              class="fa fa-sort"
+                              *ngIf="search.sortCol !== 'intialAmount'"
+                            ></span>
+                            <span
+                              class="fa fa-sort-up"
+                              *ngIf="search.sortCol === 'intialAmount' && search.sortType == 'ASC'"
+                            ></span>
+                            <span
+                              class="fa fa-sort-down"
+                              *ngIf="search.sortCol === 'intialAmount' && search.sortType == 'DESC'"
+                            ></span>
+                            </th>
 
                             <th scope="col"style="text-align: center;">Actions</th>
                             </tr>
@@ -261,6 +281,7 @@
                                  <td style="text-align: center;">{{account.genderModel.name}}</td>
                                  <td style="text-align: center;">{{account.educationModel.degree}}</td>
                                  <td style="text-align: center;">{{account.accountTypeModel.accountType}}</td>
+                                 <td style="text-align: center;">{{account.intialAmount}}</td>
                                  
                                   <td style="text-align: center;">
                                     <div class="action-buttons">

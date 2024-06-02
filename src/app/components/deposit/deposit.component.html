@@ -23,13 +23,17 @@
                     <div class="col-sm-6">
                         <label for="accountNo" class="form-label">Account No</label><br>
                         <input type="number" class="form-control " id="accountNo" placeholder="Enter Your Account No."
-                         formControlName="accountNo">
+                         formControlName="accountNo" (blur)="onChanges()">
                         <div>
                             <span *ngIf="depositForm.get('accountNo').invalid 
                             && depositForm.get('accountNo').touched" style="color: red;">Account No is a required field</span>
                         </div>
                     </div>
-                    <div class="col-sm-6">
+                    <div class="col-sm-6" *ngIf="accountNoPresent">
+                        <div>
+                            <label for="accountName" class="form-label">Account Name</label><br>
+                            <input type="text" class="form-control" id="accountName" [value]="accountName" readonly>
+                          </div>
                         <label for="amount" class="form-label">Deposit Amount</label><br>
                         <input type="number" class="form-control" id="amount" placeholder="Enter Deposit Amount"
                          formControlName="amount">
