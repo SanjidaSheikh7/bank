@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Account Information</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+      table {
+          width: 100%;
+          table-layout: auto;
+          border-collapse: collapse;
+      }
+      th, td {
+          text-align: center;
+      }
+      th {
+          white-space: nowrap;
+      }
+  </style>
+</head>
+<body>
+    <div class="container" style="padding-top: 5px;">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div style="color: deeppink; font-size:20px;"><strong>Account's Information</strong></div>
+                        </div>
+                        <div class="col-md-4 text-right">
+                            <div style="margin-bottom: 10px;">
+                                <div style="text-align: right;">
+                                    <a [routerLink]="'/account'" class="btn btn-sm btn-primary" style="margin-right: 5px;">
+                                        <strong>+ </strong>Add Account</a>
+                                        <button class="btn  btn-sm btn-primary" type="button" (click)="refreshPage()">Refresh</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <div class="row">
+            <div class="col-md-4" style="padding-bottom: 10px;padding-top: 10px;"><b>Total Account:</b>
+                <span class="f-w-normal">{{ searchResult.totalElements }}</span>
+                <form class="d-flex margin-bottom " (keyup.enter)="getAllAccountList()">
+                    <input class="form-control me-2" type="search" placeholder="Search"
+                     aria-label="Search" name="search" [(ngModel)]="search.accountName">
+                    <button class="btn btn-primary" type="button" (click)="getAllAccountList()">Search</button>
+                </form>
+            </div>
+        </div>
+      
+         <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-striped" style="width:100%">
+                         <thead class="table-primary">
+                            <tr>
+                               <th 
+                            scope="col" 
+                            style="text-align: center;"
+                            (click)="sortByColName('name')"
+                            class="cursor-pointer-i"
+                          >
+                            Name
+                            <span
+                              class="fa fa-sort"
+                              *ngIf="search.sortCol !== 'name'"
+                            ></span>
+                            <span
+                              class="fa fa-sort-up"
+                              *ngIf="search.sortCol === 'name' && search.sortType == 'ASC'"
+                            ></span>
+                            <span
+                              class="fa fa-sort-down"
+                              *ngIf="search.sortCol === 'name' && search.sortType == 'DESC'"
+                            ></span>
+                            </th>
+
+                            <th 
+                            scope="col" 
+                            style="text-align: center;"
+                            (click)="sortByColName('father_name')"
+                            class="cursor-pointer-i"
+                          >
+                            Father's Name
+                            <span
+                              class="fa fa-sort"
+                              *ngIf="search.sortCol !== 'father_name'"
+                            ></span>
+                            <span
+                              class="fa fa-sort-up"
+                              *ngIf="search.sortCol === 'father_name' && search.sortType == 'ASC'"
+                            ></span>
+                            <span
+                              class="fa fa-sort-down"
+                              *ngIf="search.sortCol === 'father_name' && search.sortType == 'DESC'"
+                            ></span>
+                            </th>
+                            
+                            <th 
+                            scope="col" 
+                            style="text-align: center;"
+                            (click)="sortByColName('mother_name')"
+                            class="cursor-pointer-i"
+                          >
+                            Mother's Name
+                            <span
+                              class="fa fa-sort"
+                              *ngIf="search.sortCol !== 'mother_name'"
+                            ></span>
+                            <span
+                              class="fa fa-sort-up"
+                              *ngIf="search.sortCol === 'mother_name' && search.sortType == 'ASC'"
+                            ></span>
+                            <span
+                              class="fa fa-sort-down"
+                              *ngIf="search.sortCol === 'mother_name' && search.sortType == 'DESC'"
+                            ></span>
+                            </th>
+                            <th 
+                            scope="col" 
+                            style="text-align: center;"
+                            (click)="sortByColName('email')"
+                            class="cursor-pointer-i"
+                          >
+                            Email Address
+                            <span
+                              class="fa fa-sort"
+                              *ngIf="search.sortCol !== 'email'"
+                            ></span>
+                            <span
+                              class="fa fa-sort-up"
+                              *ngIf="search.sortCol === 'email' && search.sortType == 'ASC'"
+                            ></span>
+                            <span
+                              class="fa fa-sort-down"
+                              *ngIf="search.sortCol === 'email' && search.sortType == 'DESC'"
+                            ></span>
+                            </th>
+                            
+                            <th 
+                            scope="col" 
+                            style="text-align: center;"
+                            (click)="sortByColName('dob')"
+                            class="cursor-pointer-i"
+                          >
+                            Age
+                            <span
+                              class="fa fa-sort"
+                              *ngIf="search.sortCol !== 'dob'"
+                            ></span>
+                            <span
+                              class="fa fa-sort-up"
+                              *ngIf="search.sortCol === 'dob' && search.sortType == 'ASC'"
+                            ></span>
+                            <span
+                              class="fa fa-sort-down"
+                              *ngIf="search.sortCol === 'dob' && search.sortType == 'DESC'"
+                            ></span>
+                            </th>
+
+                            <th 
+                            scope="col" 
+                            style="text-align: center;"
+                            (click)="sortByColName('address')"
+                            class="cursor-pointer-i"
+                          >
+                            Address
+                            <span
+                              class="fa fa-sort"
+                              *ngIf="search.sortCol !== 'address'"
+                            ></span>
+                            <span
+                              class="fa fa-sort-up"
+                              *ngIf="search.sortCol === 'address' && search.sortType == 'ASC'"
+                            ></span>
+                            <span
+                              class="fa fa-sort-down"
+                              *ngIf="search.sortCol === 'address' && search.sortType == 'DESC'"
+                            ></span>
+                            </th>
+
+                            <th 
+                            scope="col" 
+                            style="text-align: center;"
+                            (click)="sortByColName('genderId')"
+                            class="cursor-pointer-i"
+                          >
+                            Gender 
+                            <span
+                              class="fa fa-sort"
+                              *ngIf="search.sortCol !== 'genderId'"
+                            ></span>
+                            <span
+                              class="fa fa-sort-up"
+                              *ngIf="search.sortCol === 'genderId' && search.sortType == 'ASC'"
+                            ></span>
+                            <span
+                              class="fa fa-sort-down"
+                              *ngIf="search.sortCol === 'genderId' && search.sortType == 'DESC'"
+                            ></span>
+                            </th>
+
+                            <th 
+                            scope="col" 
+                            style="text-align: center;"
+                            (click)="sortByColName('educationId')"
+                            class="cursor-pointer-i"
+                          >
+                            Education
+                            <span
+                              class="fa fa-sort"
+                              *ngIf="search.sortCol !== 'educationId'"
+                            ></span>
+                            <span
+                              class="fa fa-sort-up"
+                              *ngIf="search.sortCol === 'educationId' && search.sortType == 'ASC'"
+                            ></span>
+                            <span
+                              class="fa fa-sort-down"
+                              *ngIf="search.sortCol === 'educationId' && search.sortType == 'DESC'"
+                            ></span>
+                            </th>
+
+                            <th 
+                            scope="col" 
+                            style="text-align: center;"
+                            (click)="sortByColName('accountTypeId')"
+                            class="cursor-pointer-i"
+                          >
+                            Account Type 
+                            <span
+                              class="fa fa-sort"
+                              *ngIf="search.sortCol !== 'accountTypeId'"
+                            ></span>
+                            <span
+                              class="fa fa-sort-up"
+                              *ngIf="search.sortCol === 'accountTypeId' && search.sortType == 'ASC'"
+                            ></span>
+                            <span
+                              class="fa fa-sort-down"
+                              *ngIf="search.sortCol === 'accountTypeId' && search.sortType == 'DESC'"
+                            ></span>
+                            </th>
+
+                            <th scope="col"style="text-align: center;">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let account of accountList">
+                                 <td style="text-align: center;">{{account.name}}</td>
+                                 <td style="text-align: center;">{{account.father_name}}</td>
+                                 <td style="text-align: center;">{{account.mother_name}}</td>
+                                 <td style="text-align: center;">{{account.email}}</td>
+                                 <td style="text-align: center;">{{account.age}}</td>
+                                 <td style="text-align: center;">{{account.address}}</td>
+                                 <td style="text-align: center;">{{account.genderModel.name}}</td>
+                                 <td style="text-align: center;">{{account.educationModel.degree}}</td>
+                                 <td style="text-align: center;">{{account.accountTypeModel.accountType}}</td>
+                                 
+                                  <td style="text-align: center;">
+                                    <div class="action-buttons">
+                                    <a [routerLink]="'/account/'+ account.id" 
+                                    [queryParams]="{ 'isView': true}" 
+                                    class="btn btn-outline-warning btn-sm"
+                                    data-toggle="tooltip"
+                                    title="View"
+                                    >
+                                    <i class="fas fa-eye"></i> 
+                                    </a>
+                                      <a [routerLink]="'/account/'+ account.id" 
+                                      [queryParams]="{ isUpdate: true}" 
+                                      class="btn btn-outline-success btn-sm" 
+                                      data-toggle="tooltip"
+                                      title="Edit"
+                                      style="padding-right: 5px;">
+                                      <i class="fas fa-edit" style="padding-right: 5px;"></i> 
+                                      </a>
+                                      <button type="button" 
+                                      class="btn  btn-outline-danger btn-sm"
+                                      data-toggle="tooltip"
+                                      title="Delete" 
+                                      (click)="deleteAccount(account.id)" 
+                                      style="padding-right: 5px;">
+                                      <i class="fas fa-trash-alt" style="padding-right: 5px;"></i> 
+                                      </button>
+                                    </div>
+                                  </td>
+                                
+                            </tr>
+                        </tbody>
+                    </table>
+                 </div>
+            </div>
+        </div>
+        <div style="text-align: center;">
+            <!-- Pagination Start -->
+        <nav class="pagination-div" *ngIf="searchResult.totalPages >= 2">
+            <ul class="pagination justify-content-center">
+              <li class="page-item {{ searchResult.hasPrevious ? '' : 'disabled' }}">
+                <a
+                  class="page-link previous cursor-pointer"
+                  (click)="prevPage()"
+                  tabindex="-1"
+                  >Previous</a
+                >
+              </li>
+              <li
+                *ngFor="let page of searchResult.pages"
+                class="page-item {{
+                  page == searchResult.currentPage.toString() ? 'active' : ''
+                }} {{ page == '...' ? 'disabled' : '' }}"
+              >
+                <a class="page-link cursor-pointer" (click)="goPage(page)">{{
+                  page
+                }}</a>
+              </li>
+              <li class="page-item {{ searchResult.hasNext ? '' : 'disabled' }}">
+                <a
+                  aria-disabled="'false'"
+                  class="page-link next cursor-pointer"
+                  (click)="nextPage()"
+                  >Next</a
+                >
+              </li>
+            </ul>
+          </nav>
+          <!-- Pagination End -->
+    </div>
+    </div>
+</body>
+</html>
+
+

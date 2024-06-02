@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Panel Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="container col-sm-12">
+        <form class="col-sm-12" [formGroup]="depositForm" (ngSubmit)="onSubmit()">
+            <div class="container mt-5 d-flex align-items-center">
+                <a routerLink="/accountDetails" class="btn btn-default border-0">
+                    <i class="fas fa-arrow-left"></i></a>
+                <span class="ml-3 mb-0" style="color: deeppink;"><b>Deposit</b></span>
+            </div>
+        <div class="panel panel-default col-sm-12 ">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <label for="accountNo" class="form-label">Account No</label><br>
+                        <input type="number" class="form-control " id="accountNo" placeholder="Enter Your Account No."
+                         formControlName="accountNo">
+                        <div>
+                            <span *ngIf="depositForm.get('accountNo').invalid 
+                            && depositForm.get('accountNo').touched" style="color: red;">Account No is a required field</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="amount" class="form-label">Deposit Amount</label><br>
+                        <input type="number" class="form-control" id="amount" placeholder="Enter Deposit Amount"
+                         formControlName="amount">
+                        <div>
+                            <span *ngIf="depositForm.get('amount').invalid 
+                            && depositForm.get('amount').touched" style="color: red;">Amount is a required field</span>
+                        </div>
+                    </div>
+                </div> 
+                  
+            </div>
+        </div>
+        <div class="col-sm-12" style="text-align: center; margin-top: 10px;">
+            <a class="btn btn-danger" [routerLink]="'/depositDetails'" role="button">Cancel</a>
+            <span style="margin-left: 10px;"></span>
+            <button type="submit" class="btn btn-primary"><b>Deposit</b></button>
+        </div>
+    </form>
+    </div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

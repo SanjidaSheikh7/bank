@@ -1,0 +1,9 @@
+.read-only {
+    background-color: #f8f9fa; 
+    color: #6c757d; 
+    cursor: not-allowed; 
+    border: 1px solid #ced4da; 
+    padding: 5px;
+    pointer-events: none; 
+    appearance: none; 
+}

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Panel Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="container col-sm-12">
+        <form class="col-sm-12" [formGroup]="accountForm" (ngSubmit)="onSubmit()">
+            <div class="container mt-5 d-flex align-items-center">
+                <a routerLink="/accountDetails" class="btn btn-default border-0">
+                    <i class="fas fa-arrow-left"></i></a>
+                <span class="ml-3 mb-0" style="color: deeppink;">{{getSubmitButtonText()}} Account</span>
+            </div>
+        <div class="panel panel-default col-sm-12 ">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <label for="inputName" class="form-label">Name</label><br>
+                        <input type="text" class="form-control" id="inputName" placeholder="Enter Full Name"
+                         formControlName="name" [ngClass]="{ 'read-only': isView }">
+                        <div>
+                            <span *ngIf="accountForm.get('name').invalid 
+                            && accountForm.get('name').touched" style="color: red;">Name is a required field</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="fatherName" class="form-label">Father Name</label><br>
+                        <input type="text" class="form-control" id="fatherName" [ngClass]="{ 'read-only': isView }"
+                        placeholder="Enter Father Name" formControlName="father_name">
+                        <div>
+                            <span *ngIf="accountForm.get('father_name').invalid 
+                            && accountForm.get('father_name').touched" style="color: red;">Father name is a required field</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="inputAddress2" class="form-label">Email Address</label><br>
+                        <input type="text" class="form-control" id="inputAddress2" [ngClass]="{ 'read-only': isView }"
+                         placeholder="Enter Email Address" formControlName="email">
+                        <div>
+                            <span *ngIf="accountForm.get('email').invalid 
+                            && accountForm.get('email').touched" style="color: red;">Valid email required</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="motherName" class="form-label">Mother Name</label><br>
+                        <input type="text" class="form-control" id="motherName" [ngClass]="{ 'read-only': isView }"
+                        placeholder="Enter Father Name" formControlName="mother_name">
+                        <div>
+                            <span *ngIf="accountForm.get('mother_name').invalid 
+                            && accountForm.get('mother_name').touched" style="color: red;">Mother name is a required field</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="phone" class="form-label">Phone Number</label><br>
+                        <input type="tel" class="form-control" id="phone" [ngClass]="{ 'read-only': isView }"
+                        placeholder="Enter Phone Number" pattern="0\d{10}" formControlName="phoneNo">
+                        <div>
+                            <span *ngIf="accountForm.get('phoneNo').invalid && accountForm.get('phoneNo').touched" style="color: red;">Phone number is a required field</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="address" class="form-label">Address</label><br>
+                        <input type="text" class="form-control" id="address" [ngClass]="{ 'read-only': isView }"
+                        placeholder="Enter Address"
+                         formControlName="address">
+                        <div>
+                            <span *ngIf="accountForm.get('address').invalid && accountForm.get('address').touched" 
+                            style="color: red;">Address is a required field</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="dob" class="form-label">Date of Birth</label><br>
+                        <input type="date" class="form-control" id="dob" [ngClass]="{ 'read-only': isView }"
+                         formControlName="dob">
+                        <div>
+                            <span *ngIf="accountForm.get('dob').invalid && accountForm.get('dob').touched" 
+                            style="color: red;">Date of birth is a required field</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6"  >
+                        <label for="genderSelect" class="form-label" >Choose Gender:</label>
+                        <select id="genderSelect" class="form-select form-control" [ngClass]="{ 'read-only': isView }"
+                          formControlName="genderId">
+                            <option value="null" disabled selected>Select Gender</option>
+                            <option *ngFor="let gender of genderList" [ngValue]="gender.id">{{gender.name}}</option>
+                        </select>
+                        <div>
+                            <span *ngIf="accountForm.get('genderId').invalid && accountForm.get('genderId').touched" 
+                            style="color: red;">Gender Id is a required field</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="Select" class="form-label">Choose Education:</label>
+                        <select id="educationSelect" class="form-select form-control"
+                         formControlName="educationId" [ngClass]="{ 'read-only': isView }">
+                            <option [ngValue]="null" disabled selected>Select Degree</option>
+                            <option *ngFor="let education of educationList" [ngValue]="education.id">{{education.degree}}</option>
+                        </select>
+                        <div>
+                            <span *ngIf="accountForm.get('educationId').invalid && accountForm.get('educationId').touched" 
+                            style="color: red;">Education Id is a required field</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="accountTypeSelect" class="form-label">Choose Account Type:</label>
+                        <select id="accountTypeSelect" class="form-select form-control"
+                            formControlName="accountTypeId" [ngClass]="{ 'read-only': isView }">
+                            <option value="null"disabled selected>Select Account Type</option>
+                            <option *ngFor="let account of accountTypeList" [ngValue]="account.id">{{account.accountType}}</option>
+                        </select>
+                        <div>
+                            <span *ngIf="accountForm.get('accountTypeId').invalid && accountForm.get('accountTypeId').touched" 
+                            style="color: red;">Account Type Id is a required field</span>
+                        </div>
+                    </div>
+                </div> 
+                  
+            </div>
+        </div>
+        <div class="col-sm-12" style="text-align: center; margin-top: 10px;" *ngIf="!isView">
+            <a class="btn btn-danger" [routerLink]="'/accountDetails'" role="button">Cancel</a>
+            <span style="margin-left: 10px;"></span>
+            <button type="submit" class="btn btn-primary"><b>{{ getSubmitButtonText() }}</b></button>
+        </div>
+    </form>
+    </div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
