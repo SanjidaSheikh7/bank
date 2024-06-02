@@ -17,6 +17,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { WithdrawComponent } from './components/withdraw/withdraw.component';
 import { WithdrawDetailsComponent } from './components/withdraw-details/withdraw-details.component';
+import { TrialComponent } from './components/trial/trial.component';
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import { WithdrawDetailsComponent } from './components/withdraw-details/withdraw
     HeaderComponent,
     WithdrawComponent,
     WithdrawDetailsComponent,
+    TrialComponent,
   ],
   imports: [
     BrowserModule,
