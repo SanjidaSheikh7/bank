@@ -37,11 +37,11 @@ export class DepositComponent implements OnInit{
      sortCol:"id",
      sortType:"ASC"
  };
-  spinner: any;
-  toastrService: any;
 
   constructor(private commonRestService:CommonRestService,
-              private router:Router
+              private router:Router,
+              private toastrService: ToastrService,
+              private spinner: NgxSpinnerService
   ){}
   ngOnInit(): void {
   this.depositForm=new FormGroup({
@@ -58,8 +58,7 @@ export class DepositComponent implements OnInit{
   params=params.append("size",this.search.size);
   params=params.append("sortCol",this.search.sortCol);
   params=params.append("sortType",this.search.sortType);
-  console.log(params);
-   this.commonRestService.getAllwithParams('account/v1/pagination',params).subscribe(
+  this.commonRestService.getAllwithParams('account/v1/pagination',params).subscribe(
     (response)=>{
       if(response.success){
         this.accountList=response.data;
@@ -70,10 +69,8 @@ export class DepositComponent implements OnInit{
         this.searchResult.hasNext=response.hasNext;
         this.searchResult.hasPrevious=response.hasPrevious;
         if (this.accountList.length > 0) {
-          for(let i=0;i<this.accountList.length;i++){
-              this.accountNoList[i]=this.accountList[i].accountNo;
-              console.log('Account Number:', this.accountNoList[i]);
-          }
+          this.accountNoList = this.accountList.map(account => account.accountNo.toString());
+          console.log('Account Numbers:', this.accountNoList);
         }
       }
     },
@@ -83,45 +80,42 @@ export class DepositComponent implements OnInit{
   );
 };
 
-// onChanges(): void {
-//   const accountNoControl = this.depositForm.get('accountNo');
-//   if (accountNoControl) {
-//     accountNoControl.valueChanges.subscribe(value => {
-//       const accountNumber = Number(value); // Ensure the value is a number
-//       this.accountNoPresent = this.accountNoList.includes(accountNumber);
-//       console.log(`Account number (${accountNumber}) is ${this.accountNoPresent ? 'valid' : 'invalid'}`);
-//     });
-//   }
-// }
-
-onChanges(): void {
+onBlurAccountNo(): void {
   const accountNoControl = this.depositForm.get('accountNo');
   if (accountNoControl) {
-    accountNoControl.valueChanges.subscribe(value => {
-      const accountNumber = Number(value); // Ensure the value is a number
-      this.accountNoPresent = this.accountNoList.includes(accountNumber);
-      console.log(`Account number (${accountNumber}) is ${this.accountNoPresent ? 'valid' : 'invalid'}`);
-      if (this.accountNoPresent) {
-        const account = this.accountList.find(acc => acc.accountNo === accountNumber);
-        if (account) {
-          this.accountName = account.name;
-        } else {
-          this.accountName = '';
-        }
+    const accountNumber = accountNoControl.value?.toString();
+    this.accountNoPresent = this.accountNoList.includes(accountNumber);
+    console.log(`Account number (${accountNumber}) is ${this.accountNoPresent ? 'valid' : 'invalid'}`);
+    if (this.accountNoPresent) {
+      const account = this.accountList.find(acc => acc.accountNo.toString() === accountNumber);
+      if (account) {
+        this.accountName = account.name;
       } else {
-        this.accountName = '';
+        this.toastrService.error("Account not found in the account list", "ERROR");
       }
-    });
+    } else {
+      this.accountName = '';
+      this.toastrService.error("Invalid account number", "ERROR");
+    }
   }
 }
 
- onSubmit() {
+
+onSubmit() {
+  this.spinner.show();
    this.commonRestService.post('deposit/v1/create',this.depositForm.value).subscribe(
     (response)=>{
+      if(response.success){
+        this.spinner.hide();
        console.log(response);
        this.router.navigate(['/depositDetails']).then(()=>{
         this.depositForm.reset();
        });
+      } else {
+        this.spinner.hide();
+        this.toastrService.error(response.message, "ERROR");
+    }
    });
-}
+  }
+
 }

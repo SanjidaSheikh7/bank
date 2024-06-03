@@ -1,1 +1,70 @@
-<p>withdraw works!</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Panel Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="container col-sm-12">
+        <form class="col-sm-12" [formGroup]="withdrawForm" (ngSubmit)="onSubmit()">
+            <div class="container mt-5 d-flex align-items-center">
+                <a routerLink="/withdrawDetails" class="btn btn-default border-0">
+                    <i class="fas fa-arrow-left"></i></a>
+                <span class="ml-3 mb-0" style="color: deeppink;"><b>Withdraw</b></span>
+            </div>
+        <div class="panel panel-default col-sm-12 ">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <label for="accountNo" class="form-label">Account No</label><br>
+                        <input type="number" class="form-control " id="accountNo" placeholder="Enter Your Account No."
+                         formControlName="accountNo" (blur)='onBlurAccountNo()'>
+                        <div>
+                            <span *ngIf="withdrawForm.get('accountNo')?.invalid 
+                            && withdrawForm.get('accountNo').touched" style="color: red;">Account No is a required field</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6" *ngIf="accountNoPresent">
+                        <div>
+                            <label for="accountName" class="form-label">Account Name</label><br>
+                            <input type="text" class="form-control" id="accountName" [value]="accountName" readonly>
+                        </div>
+                    </div>
+                    <div class="col-sm-6" *ngIf="accountNoPresent">
+                        <div>
+                            <label for="currentBalance" class="form-label">Current Balance</label><br>
+                            <input type="text" class="form-control" id="currentBalance" [value]="currentBalance" readonly>
+                        </div>
+                    </div>
+                    <div class="col-sm-6" *ngIf="accountNoPresent">
+                        <label for="withdrawAmount" class="form-label">Withdraw Amount</label><br>
+                        <input type="number" class="form-control" id="withdrawAmount" placeholder="Enter Withdraw Amount"
+                         formControlName="withdrawAmount">
+                        <div>
+                            <span *ngIf="withdrawForm.get('withdrawAmount')?.invalid 
+                            && withdrawForm.get('withdrawAmount').touched" style="color: red;">Withdraw Amount is a required field</span>
+                        </div>
+                    </div>
+                </div> 
+                  
+            </div>
+        </div>
+        <div class="col-sm-12" style="text-align: center; margin-top: 10px;">
+            <a class="btn btn-danger" [routerLink]="'/withdrawDetails'" role="button">Cancel</a>
+            <span style="margin-left: 10px;"></span>
+            <button type="submit" class="btn btn-primary"><b>Withdraw</b></button>
+        </div>
+    </form>
+    </div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+

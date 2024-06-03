@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonRestService } from 'src/app/service/common-rest.service';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-accounts',
@@ -19,7 +21,9 @@ export class AccountsComponent implements OnInit{
     // gender:string;
     constructor(private commonRestService:CommonRestService,
                 private activatedRoute:ActivatedRoute,
-                private router:Router
+                private router:Router,
+                private toastrService: ToastrService,
+                private spinner: NgxSpinnerService
     ){
     }
     ngOnInit(): void {

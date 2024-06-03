@@ -4,6 +4,8 @@ import { AccountsComponent } from './components/accounts/accounts.component';
 import { AccountDetailComponent } from './components/account-detail/account-detail.component';
 import { DepositComponent } from './components/deposit/deposit.component';
 import { DepositDetailComponent } from './components/deposit-detail/deposit-detail.component';
+import { WithdrawComponent } from './components/withdraw/withdraw.component';
+import { WithdrawDetailsComponent } from './components/withdraw-details/withdraw-details.component';
 
 const routes: Routes = [
   { path: 'account', component: AccountsComponent,title:'Add_Account'},
@@ -11,6 +13,8 @@ const routes: Routes = [
   { path: 'account/:id', component:AccountsComponent ,title:'Update Account'},
   { path: 'deposit', component:DepositComponent ,title:'Deposit' },
   { path: 'depositDetails', component:DepositDetailComponent ,title:'depositDetails' },
+  { path: 'withdraw', component:WithdrawComponent ,title:'withdraw' },
+  { path: 'withdrawDetails', component:WithdrawDetailsComponent ,title:'withdrawDetails' },
   { path: '', redirectTo:'accountDetails',pathMatch:'full' },
 ];
 

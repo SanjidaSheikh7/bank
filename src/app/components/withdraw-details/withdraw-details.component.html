@@ -1,1 +1,180 @@
-<p>withdraw-details works!</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Withdraw Information</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="container" style="padding-top: 5px;">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div style="color: deeppink; font-size:20px;"><strong>Withdraw Information</strong></div>
+                        </div>
+                        <div class="col-md-4 text-right">
+                            <div style="margin-bottom: 10px;">
+                                <div style="text-align: right;">
+                                    <a [routerLink]="'/withdraw'" class="btn btn-sm btn-primary" style="margin-right: 5px;">
+                                        <strong>+ </strong>Create Withdraw</a>
+                                        <button class="btn  btn-sm btn-primary" type="button" (click)="refreshPage()">Refresh</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <div class="row">
+            <div class="col-md-4" style="padding-bottom: 10px;padding-top: 10px;"><b>Total Withdraw:</b>
+                <span class="f-w-normal">{{ searchResult.totalElements }}</span>
+                <form class="d-flex margin-bottom " (keyup.enter)="getAllWithdrawList()">
+                    <input class="form-control me-2" type="search" placeholder="Search by Account No"
+                     aria-label="Search" name="search" [(ngModel)]="search.accountNo">
+                    <button class="btn btn-primary" type="button" (click)="getAllWithdrawList()">Search</button>
+                </form>
+            </div>
+        </div>
+      
+         <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                         <thead class="table-primary">
+                            <tr>
+                                <th 
+                                scope="col" 
+                                style="text-align: center;"
+                                (click)="sortByColName('accountNo')"
+                                class="cursor-pointer-i"
+                              >
+                                Account No
+                                <span
+                                  class="fa fa-sort"
+                                  *ngIf="search.sortCol !== 'accountNo'"
+                                ></span>
+                                <span
+                                  class="fa fa-sort-up"
+                                  *ngIf="search.sortCol === 'accountNo' && search.sortType == 'ASC'"
+                                ></span>
+                                <span
+                                  class="fa fa-sort-down"
+                                  *ngIf="search.sortCol === 'accountNo' && search.sortType == 'DESC'"
+                                ></span>
+                                </th>
+                                
+                            <th 
+                            scope="col" 
+                            style="text-align: center;"
+                            (click)="sortByColName('withdrawAmount')"
+                            class="cursor-pointer-i"
+                          >
+                          Withdraw Amount
+                            <span
+                              class="fa fa-sort"
+                              *ngIf="search.sortCol !== 'withdrawAmount'"
+                            ></span>
+                            <span
+                              class="fa fa-sort-up"
+                              *ngIf="search.sortCol === 'withdrawAmount' && search.sortType == 'ASC'"
+                            ></span>
+                            <span
+                              class="fa fa-sort-down"
+                              *ngIf="search.sortCol === 'withdrawAmount' && search.sortType == 'DESC'"
+                            ></span>
+                            </th>
+                            <th 
+                            scope="col" 
+                            style="text-align: center;"
+                            (click)="sortByColName('withdrawTime')"
+                            class="cursor-pointer-i"
+                          >
+                            Withdraw Date
+                            <span
+                              class="fa fa-sort"
+                              *ngIf="search.sortCol !== 'withdrawTime'"
+                            ></span>
+                            <span
+                              class="fa fa-sort-up"
+                              *ngIf="search.sortCol === 'withdrawTime' && search.sortType == 'ASC'"
+                            ></span>
+                            <span
+                              class="fa fa-sort-down"
+                              *ngIf="search.sortCol === 'withdrawTime' && search.sortType == 'DESC'"
+                            ></span>
+                            </th>
+                            <th 
+                            scope="col" 
+                            style="text-align: center;"
+                            (click)="sortByColName('withdrawTransactionId')"
+                            class="cursor-pointer-i"
+                          >
+                            Transaction Id
+                            <span
+                              class="fa fa-sort"
+                              *ngIf="search.sortCol !== 'withdrawTransactionId'"
+                            ></span>
+                            <span
+                              class="fa fa-sort-up"
+                              *ngIf="search.sortCol === 'withdrawTransactionId' && search.sortType == 'ASC'"
+                            ></span>
+                            <span
+                              class="fa fa-sort-down"
+                              *ngIf="search.sortCol === 'withdrawTransactionId' && search.sortType == 'DESC'"
+                            ></span>
+                            </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let withdraw of withdrawList"> 
+                                <td style="text-align: center;">{{withdraw.accountNo}}</td>
+                                 <td style="text-align: center;">{{withdraw.withdrawAmount}}</td>
+                                 <td style="text-align: center;">{{withdraw.withdrawTime}}</td>
+                                 <td style="text-align: center;">{{withdraw.withdrawTransactionId}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                 </div>
+            </div>
+        </div>
+        <div style="text-align: center;">
+            <!-- Pagination Start -->
+        <nav class="pagination-div" *ngIf="searchResult.totalPages >= 2">
+            <ul class="pagination justify-content-center">
+              <li class="page-item {{ searchResult.hasPrevious ? '' : 'disabled' }}">
+                <a
+                  class="page-link previous cursor-pointer"
+                  (click)="prevPage()"
+                  tabindex="-1"
+                  >Previous</a
+                >
+              </li>
+              <li
+                *ngFor="let page of searchResult.pages"
+                class="page-item {{
+                  page == searchResult.currentPage.toString() ? 'active' : ''
+                }} {{ page == '...' ? 'disabled' : '' }}"
+              >
+                <a class="page-link cursor-pointer" (click)="goPage(page)">{{
+                  page
+                }}</a>
+              </li>
+              <li class="page-item {{ searchResult.hasNext ? '' : 'disabled' }}">
+                <a
+                  aria-disabled="'false'"
+                  class="page-link next cursor-pointer"
+                  (click)="nextPage()"
+                  >Next</a
+                >
+              </li>
+            </ul>
+          </nav>
+          <!-- Pagination End -->
+    </div>
+    </div>
+</body>
+</html>
