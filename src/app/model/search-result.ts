@@ -4,6 +4,6 @@ export interface SearchResult {
     totalPages:number;
     hasNext:boolean;
     hasPrevious:boolean;
-    pages:string[];
     currentPage:number;
+    pages:string[];
 }

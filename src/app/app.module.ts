@@ -17,6 +17,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { WithdrawComponent } from './components/withdraw/withdraw.component';
 import { WithdrawDetailsComponent } from './components/withdraw-details/withdraw-details.component';
+import { TransactionComponent } from './components/transaction/transaction.component';
 
 
 
@@ -30,6 +31,7 @@ import { WithdrawDetailsComponent } from './components/withdraw-details/withdraw
     HeaderComponent,
     WithdrawComponent,
     WithdrawDetailsComponent,
+    TransactionComponent,
   ],
   imports: [
     BrowserModule,
