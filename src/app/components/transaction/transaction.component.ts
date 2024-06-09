@@ -13,20 +13,23 @@ import { CommonRestService } from 'src/app/service/common-rest.service';
 })
 export class TransactionComponent implements OnInit {
   transactionList:any[]=[];
-  searchTransactionResult:SearchTransactionResult={
-  success:false,
-  totalElements:0,
-  totalPages:0,
-  pages:[],
-  currentPage:1,
-  isFirst:false,
-  isLast:false
- };
+  transactionType: any[] = ['deposit', 'withdraw'];
+  selectedTransactionType: string=null;
+  searchResult:SearchResult={
+    success:false,
+    totalElements:0,
+    totalPages:0,
+    hasNext:false,
+    hasPrevious:false,
+    pages:[],
+    currentPage:1
+   };
 
  search:any={
+  transactionType:"",
   accountNo:"",
   page:1,
-  size:2,
+  size:10,
   sortCol:"id",
   sortType:"ASC"
 };
@@ -41,7 +44,8 @@ this.getAllTransactionList();
 }
 getAllTransactionList():void{
   this.spinner.show();
-  let params=new HttpParams().set("accountNo",this.search.accountNo);
+  let params=new HttpParams().set("transactionType",this.search.transactionType);
+  params=params.append("accountNo",this.search.accountNo);
   params=params.append("page",this.search.page);
   params=params.append("size",this.search.size);
   params=params.append("sortCol",this.search.sortCol);
@@ -52,12 +56,12 @@ getAllTransactionList():void{
       if(response.success){
         this.spinner.hide();
         this.transactionList=response.data;
-        this.searchTransactionResult.currentPage=response.currentPage;
-        this.searchTransactionResult.totalElements=response.totalElements;
-        this.searchTransactionResult.totalPages=response.totalPages;
-        this.searchTransactionResult.pages=response.pages;
-        this.searchTransactionResult.isFirst=response.isFirst;
-        this.searchTransactionResult.isLast=response.isLast;
+        this.searchResult.currentPage=response.currentPage;
+        this.searchResult.totalElements=response.totalElements;
+        this.searchResult.totalPages=response.totalPages;
+        this.searchResult.pages=response.pages;
+        this.searchResult.hasNext=response.hasNext;
+        this.searchResult.hasPrevious=response.hasPrevious;
       } else {
           this.spinner.hide();
           this.toastrService.error(response.message, "ERROR");
@@ -66,13 +70,16 @@ getAllTransactionList():void{
     });
 };
 refreshPage():void{
-  this.search.accountName=" ",
+  this.search.transactionType=" ",
+  this.search.accountNo=" ",
   this.search.page=1,
-  this.search.size=2,
+  this.search.size=10,
   this.search.sortCol="id",
   this.search.sortType="ASC"
+  this.selectedTransactionType=null;
   this.getAllTransactionList();
 }
+
 goPage(page:any):void{
   if(typeof(page)==="string"){
     page=Number(page);
@@ -99,4 +106,19 @@ sortByColName(colName: any): void {
 
   this.getAllTransactionList();
 }
+
+onTransactionTypeChange(event: any) {
+  const selectedValue = this.selectedTransactionType;
+  console.log('Selected Transaction Type:', selectedValue);
+
+  this.search.transactionType = selectedValue;
+  this.search.accountNo=" ",
+  this.search.page = 1;
+  this.search.size = 10;
+  this.search.sortCol = 'id';
+  this.search.sortType = 'ASC';
+
+  this.getAllTransactionList();
+}
+
 }

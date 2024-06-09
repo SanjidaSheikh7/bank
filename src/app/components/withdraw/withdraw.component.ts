@@ -35,7 +35,7 @@ export class WithdrawComponent implements OnInit {
  search:any={
      accountName:"",
      page:1,
-     size:2,
+     size:10,
      sortCol:"id",
      sortType:"ASC"
  };
@@ -45,8 +45,8 @@ export class WithdrawComponent implements OnInit {
               private spinner: NgxSpinnerService,
   ){}
   ngOnInit(): void {
-    this.toastrService.toastrConfig.positionClass = 'toast-top-left';
-    this.toastrService.toastrConfig.timeOut = 1500;
+    // this.toastrService.toastrConfig.positionClass = 'toast-top-left';
+    // this.toastrService.toastrConfig.timeOut = 1500;
   this.withdrawForm=new FormGroup({
     id:new FormControl(null,Validators.required),
     withdrawAmount:new FormControl(null,Validators.required),

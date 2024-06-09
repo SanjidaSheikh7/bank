@@ -25,7 +25,7 @@ export class WithdrawDetailsComponent {
  search:any={
   accountNo:"",
   page:1,
-  size:2,
+  size:10,
   sortCol:"id",
   sortType:"ASC"
 };
@@ -93,7 +93,7 @@ sortByColName(colName: any): void {
 refreshPage():void{
      this.search.accountName=" ",
      this.search.page=1,
-     this.search.size=2,
+     this.search.size=10,
      this.search.sortCol="id",
      this.search.sortType="ASC"
      this.getAllWithdrawList();

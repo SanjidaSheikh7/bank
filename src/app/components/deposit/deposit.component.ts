@@ -33,7 +33,7 @@ export class DepositComponent implements OnInit{
  search:any={
      accountName:"",
      page:1,
-     size:2,
+     size:10,
      sortCol:"id",
      sortType:"ASC"
  };
@@ -60,6 +60,7 @@ export class DepositComponent implements OnInit{
   params=params.append("sortType",this.search.sortType);
   this.commonRestService.getAllwithParams('account/v1/pagination',params).subscribe(
     (response)=>{
+      console.log(response);
       if(response.success){
         this.accountList=response.data;
         this.searchResult.currentPage=response.currentPage;
