@@ -26,7 +26,7 @@ export class TransactionComponent implements OnInit {
    };
 
  search:any={
-  transactionType:"",
+  transactionType:null,
   accountNo:"",
   page:1,
   size:10,
@@ -70,7 +70,7 @@ getAllTransactionList():void{
     });
 };
 refreshPage():void{
-  this.search.transactionType=" ",
+  this.search.transactionType=null,
   this.search.accountNo=" ",
   this.search.page=1,
   this.search.size=10,
@@ -107,11 +107,11 @@ sortByColName(colName: any): void {
   this.getAllTransactionList();
 }
 
-onTransactionTypeChange(event: any) {
-  const selectedValue = this.selectedTransactionType;
-  console.log('Selected Transaction Type:', selectedValue);
+onTransactionTypeChange() {
+  // const selectedValue = this.selectedTransactionType;
+  // console.log('Selected Transaction Type:', selectedValue);
 
-  this.search.transactionType = selectedValue;
+  this.search.transactionType = this.selectedTransactionType;
   this.search.accountNo=" ",
   this.search.page = 1;
   this.search.size = 10;

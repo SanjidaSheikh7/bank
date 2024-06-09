@@ -35,14 +35,16 @@
                 <span class="f-w-normal"> {{ searchResult.totalElements }}</span>
                     <!-- Search form -->
                     <form class="d-flex mb-3" (keyup.enter)="getAllTransactionList()">
-                        <input class="form-control me-2" type="search" placeholder="Search by Account No" aria-label="Search" name="search" [(ngModel)]="search.accountNo">
+                        <input class="form-control me-2" type="search" placeholder="Search by Account No" aria-label="Search" name="search"
+                         [(ngModel)]="search.accountNo">
                         <button class="btn btn-primary" type="button" (click)="getAllTransactionList()">Search</button>
                     </form>
             </div>
               <!-- Select box with label -->
               <div class="col-md-6" style="padding-bottom: 10px; padding-top: 10px;">
                 <label for="type" class="form-label me-2">Select Transaction type:</label>
-                <select id="type" class="form-select form-control custom-select-width" [(ngModel)]="selectedTransactionType" (change)="onTransactionTypeChange($event)">
+                <select id="type" class="form-select form-control custom-select-width" [(ngModel)]="search.transactionType "
+                 (click)="getAllTransactionList()">
                     <option [ngValue]="null" disabled selected>Select Transaction type</option>
                     <option *ngFor="let trans of transactionType" [ngValue]="trans">{{trans}}</option>
                 </select>

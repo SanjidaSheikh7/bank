@@ -84,6 +84,7 @@ export class DepositComponent implements OnInit{
 onBlurAccountNo(): void {
   const accountNoControl = this.depositForm.get('accountNo');
   if (accountNoControl) {
+    // const accountNumber:string = accountNoControl.value ?? '';
     const accountNumber = accountNoControl.value?.toString();
     this.accountNoPresent = this.accountNoList.includes(accountNumber);
     console.log(`Account number (${accountNumber}) is ${this.accountNoPresent ? 'valid' : 'invalid'}`);
