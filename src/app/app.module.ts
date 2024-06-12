@@ -18,6 +18,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { WithdrawComponent } from './components/withdraw/withdraw.component';
 import { WithdrawDetailsComponent } from './components/withdraw-details/withdraw-details.component';
 import { TransactionComponent } from './components/transaction/transaction.component';
+import { ChartComponent } from './components/chart/chart.component';
+import { NgApexchartsModule } from 'ng-apexcharts';
 
 
 
@@ -32,6 +34,7 @@ import { TransactionComponent } from './components/transaction/transaction.compo
     WithdrawComponent,
     WithdrawDetailsComponent,
     TransactionComponent,
+    ChartComponent,
   ],
   imports: [
     BrowserModule,
@@ -45,7 +48,8 @@ import { TransactionComponent } from './components/transaction/transaction.compo
       positionClass: 'toast-bottom-right',
       preventDuplicates: true,
     }),
-    NgbModule
+    NgbModule,
+    NgApexchartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

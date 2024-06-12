@@ -7,6 +7,7 @@ import { DepositDetailComponent } from './components/deposit-detail/deposit-deta
 import { WithdrawComponent } from './components/withdraw/withdraw.component';
 import { WithdrawDetailsComponent } from './components/withdraw-details/withdraw-details.component';
 import { TransactionComponent } from './components/transaction/transaction.component';
+import { ChartComponent } from './components/chart/chart.component';
 
 const routes: Routes = [
   { path: 'account', component: AccountsComponent,title:'Add_Account'},
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'withdraw', component:WithdrawComponent ,title:'withdraw' },
   { path: 'withdrawDetails', component:WithdrawDetailsComponent ,title:'withdrawDetails' },
   { path: 'transaction', component:TransactionComponent ,title:'transaction' },
+  { path: 'chart', component:ChartComponent ,title:'chart' },
   { path: '', redirectTo:'accountDetails',pathMatch:'full' },
 ];
 
